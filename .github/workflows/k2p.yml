@@ -27,7 +27,7 @@ jobs:
       matrix:
         include:
           - build_variant: "mt7621"
-            targets: "K2P"
+            targets: "K2P-USB"
     steps:
       - uses: actions/checkout@v2
       - name: Prepare environment
@@ -49,8 +49,8 @@ jobs:
         run: |
           cd trunk
           mkdir -p ${images_dir}
-          for m in $targets; do fakeroot ./build_firmware_ci k2p; \
-          if [ $? = 0 ]; then cp -f images/*.trx ${images_dir}/k2p.trx; else exit 1; fi; \
+          for m in $targets; do fakeroot ./build_firmware_ci K2P-USB; \
+          if [ $? = 0 ]; then cp -f images/*.trx ${images_dir}/K2P-USB.trx; else exit 1; fi; \
           ./clear_tree_simple >/dev/null 2>&1; done
       - name: Create archive
         if: ${{ github.event_name != 'release' && success() }}
